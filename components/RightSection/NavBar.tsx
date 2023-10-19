@@ -1,14 +1,17 @@
 import React from "react";
 import Image from "next/image";
 import { jura, k2d } from "../../app/fonts";
-import { K2D } from "next/font/google";
 import Link from "next/link";
 
-export default function NavBar() {
-  const currentDate = new Date();
-  const dayOfMonth = currentDate.getDate();
-  const month = currentDate.getMonth();
-  const year = currentDate.getFullYear();
+type NavBarInfo = {
+  date: Date,
+}
+
+export default function NavBar({ date }: NavBarInfo) {
+  const dayOfMonth = date.getDate();
+  const month = date.getMonth();
+  const year = date.getFullYear();
+
   return (
     <div className="sticky top-0 bg-bunker-50 h-24">
       <div className="flex flex-row items-center h-full justify-between">
@@ -24,7 +27,8 @@ export default function NavBar() {
         <div className="text-4xl font-bold text-bunker-900">
           {dayOfMonth} - {month + 1} - {year}
         </div>
-        <Link href="https://github.com/">
+        <Link className="mr-8"
+          href="https://github.com/">
           <Image
             src="/Github.svg"
             width={32}
