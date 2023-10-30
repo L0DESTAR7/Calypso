@@ -2,11 +2,8 @@ import React from 'react';
 import { jura } from '../app/fonts';
 
 
-export default function ForecastContainer() {
+export default function ForecastContainer({ day, temp, state }) {
 
-  const day: String = "Today";
-  const temp: Number = 20;
-  const state: String = "Mist";
 
   return (
     <div className='grid grid-cols-1 content-center w-28 h-48 border-solid rounded-3xl border-4 border-bunker-300/[.66]'>
