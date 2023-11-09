@@ -5,6 +5,7 @@ import dateProvider from '../../utils/timeProvider';
 import { ApolloProvider } from '@apollo/client';
 import gql_client from '../../utils/gql-client';
 import CentralBody from './CentralBody';
+import Settings from './Settings';
 
 
 export default function RightSection() {

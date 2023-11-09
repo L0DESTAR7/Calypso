@@ -1,23 +1,20 @@
-import { QueryResult, useQuery } from '@apollo/client';
+import { UseSuspenseQueryResult, useSuspenseQuery } from '@apollo/client';
 import Image from 'next/image';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { GET_LOCATION_WEATHER } from '../../utils/gql-queries/getLocationWeather';
+import CentralWeatherInfoSkeleton from '../Loading/CentralWeatherInfoSkeleton';
 
 type CentralWeatherInfoProps = {
-  user_location_query: QueryResult
+  user_location_query: UseSuspenseQueryResult
 }
 
 export default function CentralWeatherInfo(props: CentralWeatherInfoProps) {
 
-  const { loading: loading_coords, error: error_coords, data: data_coords }
+  const { error: error_coords, data: data_coords }
     = props.user_location_query;
-  if (loading_coords || error_coords) {
-    return CentralWeatherInfoSkeleton();
-  }
-
   if (data_coords) {
-    const { loading: loading_weather, error: error_weather, data: data_weather }
-      = useQuery(
+    const { error: error_weather, data: data_weather }
+      = useSuspenseQuery(
         GET_LOCATION_WEATHER,
         {
           variables: {
@@ -29,17 +26,18 @@ export default function CentralWeatherInfo(props: CentralWeatherInfoProps) {
         }
       );
 
-    if (loading_weather || error_weather) {
+    if (error_weather) {
+      // TODO: implement error skeleton
       return CentralWeatherInfoSkeleton();
     }
 
-    if (data_weather) {
-      return (
+    return (
+      <Suspense fallback={<CentralWeatherInfoSkeleton />}>
         <div className='flex flex-row'>
           <div className='flex flex-col gap-4'>
-            <div className='flex flex-row'>
-              <h1 className='text-[272px] font-bold text-bunker-800 leading-none place-self-center'>
-                {data_weather?.getWeatherInfo.current.temp_c}
+            <div className='flex flex-row items-stretch'>
+              <h1 className='text-[272px] font-bold text-bunker-800 leading-none place-self-center' suppressHydrationWarning={true}>
+                {Math.trunc(data_weather?.getWeatherInfo.current.temp_c)}
               </h1>
               <Image className='place-self-start'
                 src="Degree.svg"
@@ -69,32 +67,9 @@ export default function CentralWeatherInfo(props: CentralWeatherInfoProps) {
             </div>
           </div>
         </div>
-      );
-    }
+      </Suspense>
+    );
   }
-
 }
 
 
-
-function CentralWeatherInfoSkeleton() {
-
-  return (
-    <div className='flex flex-row'>
-      <div className='flex flex-col gap-9'>
-        <div className='flex flex-row gap-10'>
-          <div className='w-72 h-64 bg-bunker-200 rounded-3xl animate-pulse'></div>
-          <div className='flex flex-col gap-2'>
-            <div className='w-24 h-24 bg-bunker-200 rounded-xl animate-pulse'></div>
-            <div className='grid grid-cols-1 gap-y-7 ml-32 place-self-center place-items-center'>
-              <div className='w-40 h-14 bg-bunker-200 rounded-lg animate-pulse'></div>
-              <div className='w-40 h-14 bg-bunker-200 rounded-lg animate-pulse'></div>
-            </div>
-          </div>
-        </div>
-        <div className='w-[40rem] h-16 rounded-2xl bg-bunker-200 animate-pulse place-self-center'>
-        </div>
-      </div>
-    </div>
-  );
-}
