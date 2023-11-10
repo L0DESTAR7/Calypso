@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { jura, k2d } from "../../app/fonts";
+import { k2d } from "../../app/fonts";
 import Link from "next/link";
 
 type NavBarInfo = {

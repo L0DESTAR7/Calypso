@@ -32,7 +32,9 @@ export default function Settings() {
           }
         </button>
       </div>
-      <div className={`w-48 h-48 bg-bunker-500 rounded-l-lg`}>
+      <div className={`w-48 h-48 bg-bunker-500 rounded-l-lg
+      ${!showSettings ? 'delay-1000 invisible' : 'visible'}
+      `}>
         <div className={`flex flex-col space-y-5 place-items-center items-center py-2 px-1`}>
           <div className={`text-bunker-50 text-xl`}>Settings</div>
           <div className={`grid grid-cols-3 place-items-center text-bunker-50 font-bold text-sm`}>

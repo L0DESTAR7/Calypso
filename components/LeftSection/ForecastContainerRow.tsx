@@ -1,4 +1,4 @@
-import { QueryResult, UseSuspenseQueryResult, useQuery, useSuspenseQuery } from "@apollo/client";
+import { UseSuspenseQueryResult, useSuspenseQuery } from "@apollo/client";
 import ForecastContainer from "../ForecastContainer";
 import { GET_FORECAST_ROW } from "../../utils/gql-queries/getForecastRow";
 import { Suspense, useContext } from "react";

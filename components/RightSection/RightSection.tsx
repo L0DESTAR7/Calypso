@@ -1,22 +1,10 @@
-'use client'
-import React from 'react';
-import NavBar from './NavBar';
-import dateProvider from '../../utils/timeProvider';
-import { ApolloProvider } from '@apollo/client';
-import gql_client from '../../utils/gql-client';
-import CentralBody from './CentralBody';
-import Settings from './Settings';
+import React from "react";
 
 
-export default function RightSection() {
-
+export default function LeftSection() {
 
   return (
-    <ApolloProvider client={gql_client}>
-      <div className='w-[70%] h-screen'>
-        <NavBar date={dateProvider()}></NavBar>
-        <CentralBody></CentralBody>
-      </div>
-    </ApolloProvider>
+    <div className="w-[30%] h-screen bg-bunker-100 z-[1]">
+    </div>
   )
 }

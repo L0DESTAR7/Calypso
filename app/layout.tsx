@@ -23,8 +23,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${jura.className} bg-bunker-50 overflow-clip`}>
         <div className='flex flex-row'>
-          <RightSection></RightSection>
           <LeftSection></LeftSection>
+          <RightSection></RightSection>
         </div>
         {children}
       </body>
