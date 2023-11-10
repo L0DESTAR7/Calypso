@@ -1,14 +1,18 @@
+'use-client'
 import { UseSuspenseQueryResult, useSuspenseQuery } from '@apollo/client';
 import Image from 'next/image';
-import React, { Suspense } from 'react';
+import React, { Suspense, useContext } from 'react';
 import { GET_LOCATION_WEATHER } from '../../utils/gql-queries/getLocationWeather';
 import CentralWeatherInfoSkeleton from '../Loading/CentralWeatherInfoSkeleton';
+import WeatherContext from '../../utils/WeatherContext';
 
 type CentralWeatherInfoProps = {
   user_location_query: UseSuspenseQueryResult
 }
 
 export default function CentralWeatherInfo(props: CentralWeatherInfoProps) {
+
+  const weatherContext = useContext(WeatherContext);
 
   const { error: error_coords, data: data_coords }
     = props.user_location_query;
@@ -22,7 +26,8 @@ export default function CentralWeatherInfo(props: CentralWeatherInfoProps) {
               lat: data_coords.getUserLocation.lat,
               lon: data_coords.getUserLocation.lon
             }
-          }
+          },
+          fetchPolicy: 'cache-and-network'
         }
       );
 
@@ -37,7 +42,7 @@ export default function CentralWeatherInfo(props: CentralWeatherInfoProps) {
           <div className='flex flex-col gap-4'>
             <div className='flex flex-row items-stretch'>
               <h1 className='text-[272px] font-bold text-bunker-800 leading-none place-self-center' suppressHydrationWarning={true}>
-                {Math.trunc(data_weather?.getWeatherInfo.current.temp_c)}
+                {Math.trunc(data_weather?.getWeatherInfo.current[weatherContext.useMetric ? "temp_c" : "temp_f"])}
               </h1>
               <Image className='place-self-start'
                 src="Degree.svg"
@@ -52,14 +57,20 @@ export default function CentralWeatherInfo(props: CentralWeatherInfoProps) {
                   width={51}
                   height={23}
                 />
-                <div className='font-semibold text-3xl text-bunker-400'>{data_weather?.getWeatherInfo.current.wind_kph} kph</div>
+                <div className='font-semibold text-3xl text-bunker-400' suppressHydrationWarning={true}>
+                  {weatherContext.useMetric ?
+                    `${data_weather?.getWeatherInfo.current.wind_kph} kph`
+                    :
+                    `${data_weather?.getWeatherInfo.current.wind_mph} mph`
+                  }
+                </div>
                 <Image
                   src="Humidity.svg"
                   alt=""
                   width={20}
                   height={32}
                 />
-                <div className='font-semibold text-3xl text-bunker-400 place-self-start'>{data_weather?.getWeatherInfo.current.humidity} %</div>
+                <div className='font-semibold text-3xl text-bunker-400 place-self-start' suppressHydrationWarning={true}>{data_weather?.getWeatherInfo.current.humidity} %</div>
               </div>
             </div>
             <div className='text-8xl font-bold text-bunker-800 place-self-center'>

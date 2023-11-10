@@ -1,9 +1,10 @@
 import { QueryResult, UseSuspenseQueryResult, useQuery, useSuspenseQuery } from "@apollo/client";
 import ForecastContainer from "../ForecastContainer";
 import { GET_FORECAST_ROW } from "../../utils/gql-queries/getForecastRow";
-import { Suspense } from "react";
+import { Suspense, useContext } from "react";
 import getDayDescription from "../../utils/getDayDescription";
 import ForecastContainerSkeleton from "../Loading/ForecastContainerSkeleton";
+import WeatherContext from "../../utils/WeatherContext";
 
 
 type ForecastContainerRowProps = {
@@ -11,6 +12,8 @@ type ForecastContainerRowProps = {
 }
 
 export default function ForecastContainerRow(props: ForecastContainerRowProps) {
+
+  const weatherContext = useContext(WeatherContext);
 
   const { error: error_coords, data: data_coords }
     = props.user_location_query;
@@ -42,7 +45,7 @@ export default function ForecastContainerRow(props: ForecastContainerRowProps) {
                   getDayDescription(item.date)
                 }
                 temp={
-                  Math.trunc(item.day.avgtemp_c)
+                  Math.trunc(item.day[weatherContext.useMetric ? "avgtemp_c" : "avgtemp_f"])
                 }
                 state={
                   String(

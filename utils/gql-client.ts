@@ -2,6 +2,7 @@ import { ApolloClient, InMemoryCache, NormalizedCacheObject } from '@apollo/clie
 
 const gql_client: ApolloClient<NormalizedCacheObject> = new ApolloClient(
   {
+    ssrMode: true,
     uri: 'http://localhost:4000',
     cache: new InMemoryCache(),
   }
