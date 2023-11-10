@@ -9,7 +9,6 @@ import CentralBody from './CentralBody';
 
 export default function RightSection() {
 
-
   return (
     <ApolloProvider client={gql_client}>
       <div className='w-[70%] h-screen'>

@@ -27,7 +27,7 @@ export default function CentralWeatherInfo(props: CentralWeatherInfoProps) {
               lon: data_coords.getUserLocation.lon
             }
           },
-          fetchPolicy: 'cache-and-network'
+          fetchPolicy: 'network-only'
         }
       );
 
