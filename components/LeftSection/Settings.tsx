@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import Switch from '../Switch';
 
-/* Add extra parameters here for future use.
-*  Every addition is a pair of parameter + setter function
-*/
 
 export default function Settings() {
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSuspenseQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { GET_USER_LOCATION } from "../../utils/gql-queries/getUserLocation";
 import CentralWeatherInfo from "./CentralWeatherInfo";
 import LocationInfo from "../LocationInfo";
@@ -10,7 +10,7 @@ import { INITIAL_WEATHER_SETTINGS, WeatherSettings } from "../../utils/WeatherSe
 
 export default function CentralBody() {
 
-  const query = useSuspenseQuery(GET_USER_LOCATION);
+  const query = useQuery(GET_USER_LOCATION);
   const [weatherSettings, setWeatherSettings] = useState<WeatherSettings>(INITIAL_WEATHER_SETTINGS);
 
   return (

@@ -1,16 +1,19 @@
-import { UseSuspenseQueryResult } from '@apollo/client';
+import { ApolloQueryResult } from '@apollo/client';
 import React, { Suspense } from 'react';
 import LocationInfoSkeleton from './Loading/LocationInfoSkeleton';
+import { GeoLocationInfo } from '../graphql-backend-server/src/__generated__/resolvers-types';
 
 type LocationProps = {
-  query: UseSuspenseQueryResult
+  query: ApolloQueryResult<{
+    getUserLocation: GeoLocationInfo
+  }>
 }
 
 export default function LocationInfo(props: LocationProps) {
 
-  const { error, data } = props.query;
+  const { error, data, loading } = props.query;
 
-  if (error) return (
+  if (error || loading) return (
     // TODO: Implement error skeleton
     LocationInfoSkeleton()
   );

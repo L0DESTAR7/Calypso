@@ -1,25 +1,36 @@
-import { UseSuspenseQueryResult, useSuspenseQuery } from "@apollo/client";
+import { ApolloQueryResult, useQuery, } from "@apollo/client";
 import ForecastContainer from "../ForecastContainer";
 import { GET_FORECAST_ROW } from "../../utils/gql-queries/getForecastRow";
 import { Suspense, useContext } from "react";
 import getDayDescription from "../../utils/getDayDescription";
 import ForecastContainerSkeleton from "../Loading/ForecastContainerSkeleton";
 import WeatherContext from "../../utils/WeatherContext";
+import { GeoLocationInfo } from "../../graphql-backend-server/src/__generated__/resolvers-types";
+import ForecastContainerRowSkeleton from "../Loading/ForecastContainerRowSkeleton";
 
 
 type ForecastContainerRowProps = {
-  user_location_query: UseSuspenseQueryResult
+  user_location_query: ApolloQueryResult<{
+    getUserLocation: GeoLocationInfo
+  }>
 }
 
 export default function ForecastContainerRow(props: ForecastContainerRowProps) {
 
   const weatherContext = useContext(WeatherContext);
 
-  const { error: error_coords, data: data_coords }
+  const { error: error_coords, loading: loading_coords, data: data_coords }
     = props.user_location_query;
+
+  if (error_coords || loading_coords) {
+    return (
+      <ForecastContainerRowSkeleton />
+    );
+  }
+
   if (data_coords) {
-    const { error: error_forecast, data: data_forecast }
-      = useSuspenseQuery(
+    const { error: error_forecast, loading: loading_forecast, data: data_forecast }
+      = useQuery(
         GET_FORECAST_ROW,
         {
           variables: {
@@ -32,9 +43,12 @@ export default function ForecastContainerRow(props: ForecastContainerRowProps) {
         }
       );
 
-    if (error_forecast) {
-      console.log("ERROR FORECAST ");
+    if (error_forecast || loading_forecast) {
+      return (
+        <ForecastContainerRowSkeleton />
+      );
     }
+
     return (
       <div className='grid grid-cols-3 gap-36 place-items-center mr-auto ml-auto'>
         {
@@ -56,6 +70,6 @@ export default function ForecastContainerRow(props: ForecastContainerRowProps) {
           ))
         }
       </div >
-    )
+    );
   }
 }
