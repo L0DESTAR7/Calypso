@@ -14,6 +14,7 @@ type GeoLocationInfo {
 # can solve this...
 
 # These types are used for Weather API
+
 type Location {
   name: String
   region: String
@@ -118,7 +119,7 @@ type DayWeatherInfo {
   daily_chance_of_snow: Int
   condition: WeatherCondition
   uv: Float
-}  
+}
 
 type ForecastWeatherInfo {
   location: Location
@@ -133,6 +134,16 @@ type Forecast {
 type WeatherInfo {
   location: Location 
   current: CurrentWeatherInfo
+}
+
+type LocationSuggestion {
+  id: Int
+  name: String
+  region: String
+  country: String
+  lat: Float
+  lon: Float
+  url: String
 }
 
 input Coordinates {
@@ -150,4 +161,5 @@ type Query {
   getUserLocation: GeoLocationInfo
   getWeatherInfo(coordinates: Coordinates): WeatherInfo
   getForecastInfo(forecastInput: ForecastInput): ForecastWeatherInfo
+  getSuggestions(prompt: String): [LocationSuggestion] 
 }

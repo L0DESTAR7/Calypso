@@ -4,7 +4,7 @@ import LocationAPI from './location-api.js';
 import WeatherAPI from './weather-api.js';
 import { readFileSync } from 'fs';
 import path from 'path';
-import { ForecastWeatherInfo, GeoLocationInfo, Resolvers, WeatherInfo } from './__generated__/resolvers-types.js';
+import { ForecastWeatherInfo, GeoLocationInfo, LocationSuggestion, Resolvers, WeatherInfo } from './__generated__/resolvers-types.js';
 
 // Schema
 const typeDefs = readFileSync(path.resolve(path.resolve(), './src/schema.graphql'), { encoding: 'utf-8' });
@@ -31,6 +31,9 @@ const resolvers: Resolvers = {
       const { lat, lon, days } = forecastInput;
       return dataSources.weatherAPI.getWeatherForecast(lat, lon, days);
     },
+    getSuggestions: async (_: any, { prompt }: any, { dataSources }): Promise<LocationSuggestion[]> => {
+      return dataSources.weatherAPI.getSuggestions(prompt);
+    }
   }
 }
 

@@ -7,7 +7,7 @@ import gql_client from '../../utils/gql-client';
 import CentralBody from './CentralBody';
 
 
-export default function RightSection() {
+export default function LeftSection() {
 
   return (
     <ApolloProvider client={gql_client}>

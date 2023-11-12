@@ -154,9 +154,21 @@ export type Location = {
   tz_id?: Maybe<Scalars['String']['output']>;
 };
 
+export type LocationSuggestion = {
+  __typename?: 'LocationSuggestion';
+  country?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  lat?: Maybe<Scalars['Float']['output']>;
+  lon?: Maybe<Scalars['Float']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  region?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+};
+
 export type Query = {
   __typename?: 'Query';
   getForecastInfo?: Maybe<ForecastWeatherInfo>;
+  getSuggestions?: Maybe<Array<Maybe<LocationSuggestion>>>;
   getUserLocation?: Maybe<GeoLocationInfo>;
   getWeatherInfo?: Maybe<WeatherInfo>;
 };
@@ -164,6 +176,11 @@ export type Query = {
 
 export type QueryGetForecastInfoArgs = {
   forecastInput?: InputMaybe<ForecastInput>;
+};
+
+
+export type QueryGetSuggestionsArgs = {
+  prompt?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -269,6 +286,7 @@ export type ResolversTypes = ResolversObject<{
   HourWeatherInfo: ResolverTypeWrapper<HourWeatherInfo>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Location: ResolverTypeWrapper<Location>;
+  LocationSuggestion: ResolverTypeWrapper<LocationSuggestion>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   WeatherCondition: ResolverTypeWrapper<WeatherCondition>;
@@ -290,6 +308,7 @@ export type ResolversParentTypes = ResolversObject<{
   HourWeatherInfo: HourWeatherInfo;
   Int: Scalars['Int']['output'];
   Location: Location;
+  LocationSuggestion: LocationSuggestion;
   Query: {};
   String: Scalars['String']['output'];
   WeatherCondition: WeatherCondition;
@@ -423,8 +442,20 @@ export type LocationResolvers<ContextType = ContextValue, ParentType extends Res
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type LocationSuggestionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['LocationSuggestion'] = ResolversParentTypes['LocationSuggestion']> = ResolversObject<{
+  country?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  lat?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  lon?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  region?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type QueryResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   getForecastInfo?: Resolver<Maybe<ResolversTypes['ForecastWeatherInfo']>, ParentType, ContextType, Partial<QueryGetForecastInfoArgs>>;
+  getSuggestions?: Resolver<Maybe<Array<Maybe<ResolversTypes['LocationSuggestion']>>>, ParentType, ContextType, Partial<QueryGetSuggestionsArgs>>;
   getUserLocation?: Resolver<Maybe<ResolversTypes['GeoLocationInfo']>, ParentType, ContextType>;
   getWeatherInfo?: Resolver<Maybe<ResolversTypes['WeatherInfo']>, ParentType, ContextType, Partial<QueryGetWeatherInfoArgs>>;
 }>;
@@ -451,6 +482,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   GeoLocationInfo?: GeoLocationInfoResolvers<ContextType>;
   HourWeatherInfo?: HourWeatherInfoResolvers<ContextType>;
   Location?: LocationResolvers<ContextType>;
+  LocationSuggestion?: LocationSuggestionResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   WeatherCondition?: WeatherConditionResolvers<ContextType>;
   WeatherInfo?: WeatherInfoResolvers<ContextType>;

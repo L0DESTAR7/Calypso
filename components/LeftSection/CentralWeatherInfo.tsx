@@ -20,7 +20,7 @@ export default function CentralWeatherInfo(props: CentralWeatherInfoProps) {
     = props.user_location_query;
   if (error_coords || loading_coords) return <CentralWeatherInfoSkeleton />
   if (data_coords) {
-    const { error: error_weather, data: data_weather }
+    const { error: error_weather, loading: loading_weather, data: data_weather }
       = useQuery(
         GET_LOCATION_WEATHER,
         {
@@ -33,12 +33,12 @@ export default function CentralWeatherInfo(props: CentralWeatherInfoProps) {
         }
       );
 
-    if (error_weather) {
+    if (error_weather || loading_weather) {
       // TODO: implement error skeleton
       return CentralWeatherInfoSkeleton();
     }
 
-    return (data_weather ?
+    return (
       <div className='flex flex-row'>
         <div className='flex flex-col gap-4'>
           <div className='flex flex-row items-stretch'>
@@ -79,8 +79,6 @@ export default function CentralWeatherInfo(props: CentralWeatherInfoProps) {
           </div>
         </div>
       </div>
-      :
-      <CentralWeatherInfoSkeleton />
     );
   }
 }

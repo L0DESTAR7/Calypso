@@ -22,4 +22,15 @@ export default class WeatherAPI extends RESTDataSource {
       + '&days=' + days
       + '&aqi=no' + '&alerts=no');
   }
+
+  // http://api.weatherapi.com/v1/search.json?key=b5d129e3e50f42b8a4992908232210&q=raba
+  async getSuggestions(prompt: String) {
+    console.log(`Fetching Autocomplete suggestions for: [${prompt.toUpperCase()}]`);
+    return this.get(this.baseURL
+      + 'search.json?key='
+      + process.env.WEATHER_KEY
+      + '&q='
+      + prompt.trim().toLowerCase()
+    );
+  }
 }
