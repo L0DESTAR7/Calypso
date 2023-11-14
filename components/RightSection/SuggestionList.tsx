@@ -4,6 +4,7 @@ import SuggestionItem from "./SuggestionItem"
 
 type SuggestionListProps = {
   query: ApolloQueryResult<{ getSuggestions: LocationSuggestion[] } | undefined>
+  autocompleteTrigger: Function
 }
 
 export default function SuggestionList(props: SuggestionListProps) {
@@ -26,7 +27,7 @@ export default function SuggestionList(props: SuggestionListProps) {
        absolute top-5 rounded-b-2xl backdrop-blur-[8px] pt-4 overflow-y-scroll scrollbar`}>
       {
         props.query.data?.getSuggestions.map((item, index) => (
-          <SuggestionItem data={`${item.name} ${item.region}, ${item.country}`} dataObj={item} />
+          <SuggestionItem data={`${item.name} ${item.region}, ${item.country}`} dataObj={item} autocompleteTrigger={props.autocompleteTrigger} />
         ))
       }
       <div className="w-1/4 h-1 bg-bunker-100/50 rounded-full place-self-center my-4 text-transparent">THE END</div>

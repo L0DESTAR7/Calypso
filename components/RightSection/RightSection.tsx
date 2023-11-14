@@ -12,10 +12,11 @@ import SuggestionHint from "./SuggestionHint";
 export default function RightSection() {
 
   const [rightSectionSettings, setRightSectionSettings] = useState<RightSectionSettings>(INITIAL_RIGHT_SECTION_SETTINGS);
+  const value = { rightSectionSettings, setRightSectionSettings };
 
   return (
     <ApolloProvider client={gql_client}>
-      <RightSectionContext.Provider value={rightSectionSettings}>
+      <RightSectionContext.Provider value={{ RightSectionSettings: rightSectionSettings, setter: setRightSectionSettings }}>
         <div className="w-[30%] h-screen bg-bunker-100 z-[10] relative">
           <div className="flex flex-col place-items-center items-center gap-9">
             <div className="sticky top-0 pt-2 text-bunker-900 font-bold text-5xl">Good Morning</div>

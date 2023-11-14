@@ -1,14 +1,16 @@
 
 
 export type RightSectionSettings = {
-  selectedCountry: String
+  selectedCountry: string
   selectedLat: Number
   selectedLon: Number
-  selectedCity: String
-  selectedRegion: String
-  hoveredCountry: String
-  hoveredCity: String
-  hoveredRegion: String
+  selectedCity: string
+  selectedRegion: string
+  hoveredCountry: string
+  hoveredCity: string
+  hoveredRegion: string
+  hoveredLat: Number
+  hoveredLon: Number
 }
 
 export const INITIAL_RIGHT_SECTION_SETTINGS: RightSectionSettings = {
@@ -20,4 +22,6 @@ export const INITIAL_RIGHT_SECTION_SETTINGS: RightSectionSettings = {
   hoveredCountry: "",
   hoveredCity: "",
   hoveredRegion: "",
+  hoveredLat: 0,
+  hoveredLon: 0,
 }
