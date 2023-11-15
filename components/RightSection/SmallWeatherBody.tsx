@@ -42,10 +42,6 @@ export default function SmallWeatherBody() {
         <div className="text-4xl text-bunker-400 font-extrabold">
           Cloudy
         </div>
-        <div className="w-1/2 h-[1px] bg-bunker-700 mt-4"></div>
-        <div className="text-bunker-900 text-4xl font-extrabold mb-2">Hourly Forecast</div>
-        <HourlyForecastRow />
-        <HourlyForecastRow />
       </div>
     </div>
 

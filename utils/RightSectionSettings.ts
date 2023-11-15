@@ -6,6 +6,7 @@ export type RightSectionSettings = {
   selectedLon: Number
   selectedCity: string
   selectedRegion: string
+  selectedTimezoneId: string
   hoveredCountry: string
   hoveredCity: string
   hoveredRegion: string
@@ -19,6 +20,7 @@ export const INITIAL_RIGHT_SECTION_SETTINGS: RightSectionSettings = {
   selectedLon: 8.68,
   selectedCity: "Frankfurt Am Main",
   selectedRegion: "Hessen",
+  selectedTimezoneId: "Europe/Berlin",
   hoveredCountry: "",
   hoveredCity: "",
   hoveredRegion: "",

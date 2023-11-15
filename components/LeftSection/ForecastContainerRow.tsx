@@ -61,9 +61,8 @@ export default function ForecastContainerRow(props: ForecastContainerRowProps) {
                 temp={
                   Math.trunc(item.day[weatherContext.useMetric ? "avgtemp_c" : "avgtemp_f"])
                 }
-                state={
-                  String(
-                    item.day.condition.text).split(' ').slice(0, 2).join(' ')
+                condition={
+                  item.day.condition.text
                 }
               />
             </Suspense >

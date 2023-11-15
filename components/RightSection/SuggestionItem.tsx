@@ -53,21 +53,31 @@ export default function SuggestionItem(props: SuggestionItemProps) {
     console.log(e.type);
     // Update context when Enter key or Left Click is pressed and the element is hovered or focused
     if (e.type === "click" && (isFocused || isHovered)) {
-      rightSectionContext.RightSectionSettings.selectedLat = props.dataObj?.lat!;
-      rightSectionContext.RightSectionSettings.selectedLon = props.dataObj?.lon!;
-      rightSectionContext.RightSectionSettings.selectedCity = props.dataObj?.name!;
-      rightSectionContext.RightSectionSettings.selectedRegion = props.dataObj?.region!;
-      rightSectionContext.RightSectionSettings.selectedCountry = props.dataObj?.country!;
+      rightSectionContext.setter(
+        {
+          ...rightSectionContext.RightSectionSettings,
+          selectedLat: props.dataObj?.lat!,
+          selectedLon: props.dataObj?.lon!,
+          selectedCity: props.dataObj?.name!,
+          selectedRegion: props.dataObj?.name!,
+          selectedCountry: props.dataObj?.country!,
+        }
+      )
       props.autocompleteTrigger(true);
     }
 
     if ((e as KeyboardEvent).key === "Enter" && (isFocused || isHovered)) {
       console.log("IT WAS ENTER KEY AND I WAS FOCUSED")
-      rightSectionContext.RightSectionSettings.selectedLat = props.dataObj?.lat!;
-      rightSectionContext.RightSectionSettings.selectedLon = props.dataObj?.lon!;
-      rightSectionContext.RightSectionSettings.selectedCity = props.dataObj?.name!;
-      rightSectionContext.RightSectionSettings.selectedRegion = props.dataObj?.region!;
-      rightSectionContext.RightSectionSettings.selectedCountry = props.dataObj?.country!;
+      rightSectionContext.setter(
+        {
+          ...rightSectionContext.RightSectionSettings,
+          selectedLat: props.dataObj?.lat!,
+          selectedLon: props.dataObj?.lon!,
+          selectedCity: props.dataObj?.name!,
+          selectedRegion: props.dataObj?.name!,
+          selectedCountry: props.dataObj?.country!,
+        }
+      )
       props.autocompleteTrigger(true);
     }
   }
