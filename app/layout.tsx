@@ -4,6 +4,8 @@ import type { Metadata } from 'next';
 import RightSection from '../components/RightSection/RightSection';
 import { jura } from './fonts';
 import LeftSection from '../components/LeftSection/LeftSection';
+import WeatherContext from '../utils/WeatherContext';
+import Appv1 from '../components/Appv1';
 
 
 export const metadata: Metadata = {
@@ -22,10 +24,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${jura.className} bg-bunker-50 overflow-clip`}>
-        <div className='flex flex-row'>
-          <LeftSection></LeftSection>
-          <RightSection></RightSection>
-        </div>
         {children}
       </body>
     </html>

@@ -43,7 +43,7 @@ export default function CentralWeatherInfo(props: CentralWeatherInfoProps) {
         <div className='flex flex-col gap-4'>
           <div className='flex flex-row items-stretch'>
             <h1 className='text-[272px] font-bold text-bunker-800 leading-none place-self-center' suppressHydrationWarning={true}>
-              {Math.trunc(data_weather?.getWeatherInfo.current[weatherContext.useMetric ? "temp_c" : "temp_f"])}
+              {Math.trunc(data_weather?.getWeatherInfo.current[weatherContext.WeatherSettings.useMetric ? "temp_c" : "temp_f"])}
             </h1>
             <Image className='place-self-start'
               src="Degree.svg"
@@ -59,7 +59,7 @@ export default function CentralWeatherInfo(props: CentralWeatherInfoProps) {
                 height={23}
               />
               <div className='font-semibold text-3xl text-bunker-400' suppressHydrationWarning={true}>
-                {weatherContext.useMetric ?
+                {weatherContext.WeatherSettings.useMetric ?
                   `${data_weather?.getWeatherInfo.current.wind_kph} kph`
                   :
                   `${data_weather?.getWeatherInfo.current.wind_mph} mph`

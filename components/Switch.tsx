@@ -7,20 +7,20 @@ type SwitchProps = {
 
 export default function Switch(props: SwitchProps) {
 
-  const [state, setState] = useState<boolean>(false);
   const weatherContext = useContext(WeatherContext);
-  weatherContext[props.switchState] = !state;
 
   function handleSwitchState() {
-    console.log("Switch state: " + props.switchState);
-    setState(!state);
+    weatherContext.setter({
+      ...weatherContext.WeatherSettings,
+      [props.switchState]: !weatherContext.WeatherSettings.useMetric
+    })
   }
 
   return (
     <div className="w-8 h-4 bg-gradient-to-br from-bunker-200 to-bunker-400 rounded-full">
       <button onClick={handleSwitchState} className="flex flex-row w-full h-full relative">
         <div className={`transition-all duration-700 absolute w-4 h-4 rounded-full bg-white
-        ${state ?
+        ${!weatherContext.WeatherSettings[props.switchState] ?
             'translate-x-full'
             :
             'left-0'

@@ -49,8 +49,6 @@ export default function SuggestionItem(props: SuggestionItemProps) {
   }
 
   const handleKeyPressed = (e: MouseEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement>) => {
-    console.log("A KEY WAS PRESSED OR MOUSE CLICK!");
-    console.log(e.type);
     // Update context when Enter key or Left Click is pressed and the element is hovered or focused
     if (e.type === "click" && (isFocused || isHovered)) {
       rightSectionContext.setter(
@@ -67,7 +65,6 @@ export default function SuggestionItem(props: SuggestionItemProps) {
     }
 
     if ((e as KeyboardEvent).key === "Enter" && (isFocused || isHovered)) {
-      console.log("IT WAS ENTER KEY AND I WAS FOCUSED")
       rightSectionContext.setter(
         {
           ...rightSectionContext.RightSectionSettings,

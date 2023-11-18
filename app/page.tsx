@@ -1,6 +1,6 @@
+import Appv1 from "../components/Appv1";
 
 export default function Home() {
-  return (
-    <div></div>
-  )
+
+  return (<Appv1></Appv1>);
 }

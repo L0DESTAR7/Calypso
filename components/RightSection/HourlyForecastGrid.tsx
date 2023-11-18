@@ -7,12 +7,14 @@ import ForecastContainer from "../ForecastContainer";
 import { ForecastWeatherInfo } from "../../graphql-backend-server/src/__generated__/resolvers-types";
 import { GET_TIMEZONE_ID } from "../../utils/gql-queries/getTimezoneId";
 import getFormatedTime from "../../utils/getFormatedTime";
+import WeatherContext from "../../utils/WeatherContext";
 
 
 
 export default function HourlyForecastGrid() {
 
   const rightSectionSettings = useContext(RightSectionContext);
+  const weatherSettings = useContext(WeatherContext);
   const timeZoneQuery = useQuery<{ getWeatherInfo: { location: { tz_id: string } } }>(
     GET_TIMEZONE_ID,
     {
@@ -74,7 +76,7 @@ export default function HourlyForecastGrid() {
                   <div key={index}>
                     <ForecastContainer
                       day={hours}
-                      temp={Math.trunc(item!.temp_c!)}
+                      temp={Math.trunc(item![weatherSettings.WeatherSettings.useMetric ? "temp_c" : "temp_f"]!)}
                       condition={item!.condition?.text!}
                     />
                   </div>
@@ -93,7 +95,7 @@ export default function HourlyForecastGrid() {
                   <div key={index}>
                     <ForecastContainer
                       day={hours}
-                      temp={Math.trunc(item!.temp_c!)}
+                      temp={Math.trunc(item![weatherSettings.WeatherSettings.useMetric ? "temp_c" : "temp_f"]!)}
                       condition={item!.condition?.text!}
                     />
                   </div>
