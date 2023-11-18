@@ -19,6 +19,8 @@ query GetLocationWeather($coordinates: Coordinates) {
         code
         text
       }
+      feelslike_c
+      feelslike_f
     }
   }
 }
