@@ -54,7 +54,7 @@ export default function HourlyForecastGrid() {
 
   if (data_forecast) {
 
-    const [currentHour, currentMinute] = getFormatedTime(timeZoneQuery.data!.getWeatherInfo.location.tz_id, false).split(":");
+    const [currentHour, currentMinute] = getFormatedTime(timeZoneQuery.data?.getWeatherInfo.location.tz_id, false).split(":");
     const formatedHour = currentHour.padStart(2, "0");
     const formatedMinute = currentMinute.padStart(2, "0");
     const currentTime = `${formatedHour}:${formatedMinute}`;
