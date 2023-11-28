@@ -1,0 +1,8 @@
+query GetUserLocation {
+    getUserLocation {
+      country
+      city
+      lat
+      lon
+    }
+}

@@ -1,0 +1,165 @@
+# This type is used for ip-location API
+type GeoLocationInfo {
+  country: String
+  countryCode: String
+  regionName: String
+  city: String
+  lat: Float
+  lon: Float
+}
+
+# Since the ip-location API and Weather API are different,
+# Their respective GeoLocationInfo and Location types are 
+# different as well. Perhaps using one api for everything
+# can solve this...
+
+# These types are used for Weather API
+
+type Location {
+  name: String
+  region: String
+  country: String
+  lat: Float
+  lon: Float
+  tz_id: String
+  localtime_epoch: Int
+  localtime: String
+}
+
+type WeatherCondition {
+  text: String
+  icon: String
+  code: Int
+}
+
+type CurrentWeatherInfo {
+  last_updated: String
+  temp_c: Float
+  temp_f: Float
+  is_day: Int 
+  condition: WeatherCondition
+  wind_mph: Float
+  wind_kph: Float
+  wind_degree: Int 
+  wind_dir: String
+  pressure_mb: Float
+  pressure_in: Float
+  precip_mm: Float
+  precip_in: Float
+  humidity: Int
+  cloud: Int
+  feelslike_c: Float
+  feelslike_f: Float
+  vis_km: Float
+  vis_miles: Float
+  uv: Float
+  gust_mph: Float
+  gust_kph: Float
+}
+
+type ForecastDayWeatherInfo {
+  date: String 
+  day: DayWeatherInfo
+  hour: [HourWeatherInfo]
+}
+
+type HourWeatherInfo {
+  time: String 
+  temp_c: Float
+  temp_f: Float
+  is_day: Int 
+  condition: WeatherCondition
+  wind_mph: Float
+  wind_kph: Float
+  wind_degree: Int 
+  wind_dir: String
+  pressure_mb: Float
+  pressure_in: Float
+  precip_mm: Float
+  precip_in: Float
+  humidity: Int
+  cloud: Int
+  feelslike_c: Float
+  feelslike_f: Float
+  windchill_c: Float
+  windchill_f: Float
+  heatindex_c: Float
+  heatindex_f: Float
+  dewpoint_c: Float
+  dewpoint_f: Float
+  will_it_rain: Int
+  chance_of_rain: Int
+  will_it_snow: Int
+  chance_of_snow: Int
+  vis_km: Float
+  vis_miles: Float
+  gust_mph: Float
+  gust_kph: Float
+  uv: Float
+}
+
+type DayWeatherInfo {
+  maxtemp_c: Float 
+  maxtemp_f: Float
+  mintemp_c: Float
+  mintemp_f: Float
+  avgtemp_c: Float
+  avgtemp_f: Float
+  maxwind_mph: Float
+  maxwind_kph: Float
+  totalprecip_mm: Float
+  totalprecip_in: Float
+  totalsnow_cm: Float
+  avgvis_km: Float
+  avgvis_miles: Float
+  avghumidity: Float
+  daily_will_it_rain: Int
+  daily_chance_of_rain: Int
+  daily_will_it_snow: Int
+  daily_chance_of_snow: Int
+  condition: WeatherCondition
+  uv: Float
+}
+
+type ForecastWeatherInfo {
+  location: Location
+  current: CurrentWeatherInfo
+  forecast: Forecast
+}
+
+type Forecast {
+  forecastday: [ForecastDayWeatherInfo]
+}
+
+type WeatherInfo {
+  location: Location 
+  current: CurrentWeatherInfo
+}
+
+type LocationSuggestion {
+  id: Int
+  name: String
+  region: String
+  country: String
+  lat: Float
+  lon: Float
+  url: String
+}
+
+input Coordinates {
+  lat: Float!
+  lon: Float!
+}
+
+input ForecastInput {
+  lat: Float!
+  lon: Float!
+  days: Int
+}
+
+type Query {
+  getUserLocation: GeoLocationInfo
+  getWeatherInfo(coordinates: Coordinates): WeatherInfo
+  getForecastInfo(forecastInput: ForecastInput): ForecastWeatherInfo
+  getSuggestions(prompt: String): [LocationSuggestion] 
+}
