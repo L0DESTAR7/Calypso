@@ -1,0 +1,32 @@
+query GetLocationWeather($coordinates: Coordinates) {
+  getWeatherInfo(coordinates: $coordinates) {
+    current {
+      temp_c
+      temp_f
+      humidity
+      gust_kph
+      gust_mph
+      wind_kph
+      wind_mph
+      wind_dir
+      condition {
+        code
+        text
+      }
+      feelslike_c
+      feelslike_f
+      precip_in
+      precip_mm
+      pressure_in
+      pressure_mb
+      uv
+      vis_miles
+      vis_km
+      wind_degree
+      cloud
+    }
+    location {
+      localtime
+    }
+  }
+}

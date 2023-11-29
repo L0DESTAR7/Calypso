@@ -4,16 +4,16 @@ use std::error::Error;
 
 #[derive(GraphQLQuery)]
 #[graphql(
-    query_path = "src/gql-queries/user_location.graphql",
+    query_path = "src/gql-queries/location_weather.graphql",
     schema_path = "../graphql-backend-server/src/schema.graphql",
     response_derives = "Debug"
 )]
-pub struct GetUserLocation;
+pub struct GetLocationWeather;
 
 pub async fn perform_query(
-    variables: get_user_location::Variables,
-) -> Result<Response<get_user_location::ResponseData>, Box<dyn Error>> {
-    let request_body = GetUserLocation::build_query(variables);
+    variables: get_location_weather::Variables,
+) -> Result<Response<get_location_weather::ResponseData>, Box<dyn Error>> {
+    let request_body = GetLocationWeather::build_query(variables);
 
     let client = gql_client::get_client();
     let res = client
@@ -21,7 +21,7 @@ pub async fn perform_query(
         .json(&request_body)
         .send()
         .await?;
-    let response_body: Response<get_user_location::ResponseData> = res.json().await?;
+    let response_body: Response<get_location_weather::ResponseData> = res.json().await?;
     // println!("{:#?}", response_body);
     Ok(response_body)
 }
